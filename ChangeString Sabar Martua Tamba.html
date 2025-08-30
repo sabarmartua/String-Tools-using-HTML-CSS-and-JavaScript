@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Artikel Tools</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f4f6f9;
+        color: #333;
+      }
+
+      h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+
+      .section {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      h3 {
+        margin-top: 0;
+        color: #34495e;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 5px;
+        font-size: 18px;
+      }
+
+      textarea {
+        width: 100%;
+        height: 180px;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: vertical;
+        box-sizing: border-box;
+      }
+
+      input {
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-right: 5px;
+      }
+
+      button {
+        padding: 8px 14px;
+        font-size: 14px;
+        border: none;
+        border-radius: 6px;
+        background: #3498db;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background: #2980b9;
+      }
+
+      pre,
+      p {
+        background: #f8f9fa;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #e1e4e8;
+        font-size: 14px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      #searchResult {
+        font-weight: bold;
+        color: #27ae60;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Artikel Tools</h2>
+    <div class="section">
+      <h3>Artikel</h3>
+      <textarea id="artikel"></textarea>
+    </div>
+
+    <div class="section">
+      <h3>Cari Kata</h3>
+      <input type="text" id="searchWord" placeholder="Masukkan kata" />
+      <button onclick="searchWord()">Cari</button>
+      <p id="searchResult"></p>
+    </div>
+
+    <div class="section">
+      <h3>Replace Kata</h3>
+      <input type="text" id="oldWord" placeholder="Kata lama" />
+      <input type="text" id="newWord" placeholder="Kata baru" />
+      <button onclick="replaceWord()">Ganti</button>
+      <pre id="replaceResult"></pre>
+    </div>
+
+    <div class="section">
+      <h3>Urutkan Kata A-Z</h3>
+      <button onclick="sortWords()">Urutkan</button>
+      <pre id="sortedWords"></pre>
+    </div>
+
+    <script>
+      const defaultArtikel = `Dalam kehidupan suatu negara, pendidikan memegang peranan yang amat penting untuk menjamin kelangsungan hidup negara dan bangsa, karena pendidikan merupakan wahana untuk meningkatkan dan mengembangkan kualitas sumber daya manusia.
+Seiring dengan perkembangan teknologi komputer dan teknologi informasi, sekolah-sekolah di Indonesia sudah waktunya mengembangkan Sistem Informasi manajemennya agar mampu mengikuti perubahan jaman.
+SISKO mampu memberikan kemudahan pihak pengelola menjalankan kegiatannya dan meningkatkan kredibilitas dan akuntabilitas sekolah dimata siswa, orang tua siswa, dan masyarakat umumnya.
+Penerapan teknologi informasi untuk menunjang proses pendidikan telah menjadi kebutuhan bagi lembaga pendidikan di Indonesia.
+Pemanfaatan teknologi informasi ini sangat dibutuhkan untuk meningkatkan efisiensi dan produktivitas bagi manajemen pendidikan.
+Keberhasilan dalam peningkatan efisiensi dan produktivitas bagi manajemen pendidikan akan ikut menentukan kelangsungan hidup lembaga pendidikan itu sendiri.
+Dengan kata lain menunda penerapan teknologi informasi dalam lembaga pendidikan berarti menunda kelancaran pendidikan dalam menghadapi persaingan global.
+Pemanfaatan teknologi informasi diperuntukkan bagi peningkatan kinerja lembaga pendidikan dalam upayanya meningkatkan kualitas Sumber Daya Manusia Indonesia.
+Guru dan pengurus sekolah tidak lagi disibukkan oleh pekerjaan-pekerjaan operasional, yang sesungguhnya dapat digantikan oleh komputer.
+Dengan demikian dapat memberikan keuntungan dalam efisien waktu dan tenaga.
+Penghematan waktu dan kecepatan penyajian informasi akibat penerapan teknologi informasi tersebut akan memberikan kesempatan kepada guru dan pengurus sekolah untuk meningkatkan kualitas komunikasi dan pembinaan kepada siswa.
+Dengan demikian siswa akan merasa lebih dimanusiakan dalam upaya mengembangkan kepribadian dan pengetahuannya.
+Sebagai contoh yang paling utama adalah sistem penjadwalan yang harus dilakukan setiap awal semester.
+Biasanya membutuhkan waktu lama untuk menyusun penjadwalan, dengan SISKO dapat selesai dalam waktu singkat.
+Untuk mempermudah bagian administrasi kurikulum sekolah, SISKO menyediakan fasilitas istimewa yang merupakan inti dari sistem kurikulum sekolah yaitu membantu dalam pembuatan penjadwalan mata pelajaran sekolah yang dapat diproses tidak lebih lama dari 10 menit.
+Administrator hanya akan memasukkan kondisi dari masing-masing guru yang akan mengajar baik itu dalam 1 minggu seorang guru dapat mengajar berapa jam, selain itu dapat juga melakukan pemesanan tempat dan penempatan hari libur masing-masing guru dalam 1 minggu masa mengajar.
+Setelah semua kondisi dimasukkan, sistem akan memproses semua data tersebut sehingga menghasilkan jadwal yang optimal dan dapat langsung dipakai karena sistem akan mendeteksi sehingga tidak akan ada jadwal yang bertumpukan satu dengan yang lainnya.
+Setelah permasalahan penjadwalan dapat ditangani dengan baik, hal yang tidak kalah pentingnya adalah memasukkan data siswa.
+Program SISKO telah menyediakan fasilitas untuk penanganan penilaian siswa yang secara langsung memasukkan nilai ke dalam raport dan siap dicetak.
+Untuk sistem penilaian siswa, yang dapat melakukan pengisian hanya Guru yang mengajar mata pelajaran.
+Sistem penilaian telah disesuaikan dengan KBK sehingga masing-masing guru dapat memasukkan deskripsi narasi dari mata pelajaran.
+Untuk menampilkan data penilaian dapat disesuaikan kembali dengan kebijaksanaan dari masing-masing lembaga pendidikan apakah ingin menampilkan data nilai akhir siswa maupun menampilkan data nilai siswa setiap kali mengadakan test ataupun tugas tertentu.
+Selain Modul untuk penjadwalan dan Modul Penilaian siswa, SISKO juga memberikan fasilitas untuk bagian administrasi keuangan sekolah dalam hal pembayaran SPP siswa.
+Bagian administrasi dapat langsung mengecek siapa siswa yang mempunyai tunggakan SPP dan untuk detail histori pembayaran SPP dari masing-masing siswa dapat dicetak seperti mencetak buku tabungan di bank sehingga mempermudah pekerjaan pihak administrasi keuangan.
+Administrasi keuangan dapat langsung melakukan pengaturan data pembayaran masing-masing siswa sesuai dengan kebutuhan dan dapat diubah sewaktu-waktu apabila ada kenaikan pembayaran SPP.
+Apabila siswa tersebut akan melakukan pembayaran, petugas dapat langsung memasukkan data.
+Hal sama juga dapat dilakukan untuk Data pembayaran Sumbangan Sukarela dan Tabungan Karyawisata.`;
+
+      // --- INIT ---
+      const artikelEl = document.getElementById("artikel");
+      artikelEl.value = localStorage.getItem("artikel") || defaultArtikel;
+
+      // Save artikel jika diubah
+      artikelEl.addEventListener("input", () => {
+        localStorage.setItem("artikel", artikelEl.value);
+      });
+
+      // Tokenize (case-insensitive)
+      function tokenize(text) {
+        return text.toLowerCase().match(/[a-zà-öø-ÿ0-9]+/gi) || [];
+      }
+
+      // a) Cari kata
+      function searchWord() {
+        const word = document.getElementById("searchWord").value.trim();
+        if (!word) return;
+        const re = new RegExp(`\\b${word}\\b`, "gi");
+        const count = (artikelEl.value.match(re) || []).length;
+        document.getElementById(
+          "searchResult"
+        ).textContent = `'${word}' ditemukan ${count} kali.`;
+        localStorage.setItem(
+          "searchResult",
+          document.getElementById("searchResult").textContent
+        );
+      }
+
+      // b) Replace kata
+      function replaceWord() {
+        const oldWord = document.getElementById("oldWord").value.trim();
+        const newWord = document.getElementById("newWord").value.trim();
+        if (!oldWord || !newWord) return;
+        const re = new RegExp(`\\b${oldWord}\\b`, "gi");
+        const replaced = artikelEl.value.replace(re, newWord);
+        document.getElementById("replaceResult").textContent = replaced;
+        localStorage.setItem("replaceResult", replaced);
+      }
+
+      // c) Urutkan kata
+      function sortWords() {
+        const words = tokenize(artikelEl.value);
+        const sorted = Array.from(new Set(words)).sort((a, b) =>
+          a.localeCompare(b)
+        );
+        document.getElementById("sortedWords").textContent = sorted.join(", ");
+        localStorage.setItem("sortedWords", sorted.join(", "));
+      }
+
+      // --- RESTORE hasil dari localStorage saat refresh ---
+      if (localStorage.getItem("searchResult")) {
+        document.getElementById("searchResult").textContent =
+          localStorage.getItem("searchResult");
+      }
+      if (localStorage.getItem("replaceResult")) {
+        document.getElementById("replaceResult").textContent =
+          localStorage.getItem("replaceResult");
+      }
+      if (localStorage.getItem("sortedWords")) {
+        document.getElementById("sortedWords").textContent =
+          localStorage.getItem("sortedWords");
+      }
+    </script>
+  </body>
+</html>
